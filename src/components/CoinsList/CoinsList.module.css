@@ -2,8 +2,10 @@
   position: absolute;
   top: 100%;
   right: 0;
+  display: flex;
+  flex-direction: column;
   width: 200px;
-  height: 300px;
+  height: 350px;
   background-color: transparent;
   backdrop-filter: blur(4px);
   border: 1px solid #474747;
@@ -28,9 +30,64 @@
   color: #bab8ba;
 }
 
+.clearBtnPlaceholder {
+  width: 22px;
+  flex-shrink: 0;
+}
+
 .clearInput {
   display: flex;
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+
+.coinsWrapper {
+  flex: 1;
+  overflow-y: auto;
+  height: 100%;
+  padding: 0 4px;
+}
+
+.coinsWrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.coinsWrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.coinsWrapper::-webkit-scrollbar-thumb {
+  background-color: #141313;
+  border-radius: 10px;
+  border: 2px solid #141313;
+}
+
+.coinsWrapper::-webkit-scrollbar-thumb:hover {
+  background-color: #0b0b0b;
+  border-color: #0b0b0b;
+}
+
+.coin {
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
+  border-radius: 8px;
+}
+
+.coin:hover {
+  background-color: #474747;
+}
+
+.coinTicker {
+  margin-left: 6px;
+}
+
+.favoritesBtn {
+  display: flex;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #bab8ba;
 }
