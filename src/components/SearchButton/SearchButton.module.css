@@ -1,15 +1,50 @@
+.backdrop {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.searchBtnWrapper {
+  position: relative;
+  z-index: 1;
+}
+
 .searchBtn {
   display: flex;
   align-items: center;
-  border: 3px solid #a5a5a5;
+  border: 3px solid transparent;
   border-radius: 8px;
   padding: 7px;
-  background-color: #808080;
+  background-color: transparent;
   color: #fff;
   cursor: pointer;
+  transition: background-color 200ms, border-color 200ms;
+}
+
+.searchBtn:hover,
+.searchBtn:focus {
+  background-color: #808080;
+}
+
+.searchBtn.active {
+  background-color: #808080;
+  border-color: #a5a5a5;
 }
 
 .searchText {
   text-transform: uppercase;
   margin-left: 6px;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 200px;
+  height: 300px;
+  background-color: grey;
+  z-index: 1;
 }
