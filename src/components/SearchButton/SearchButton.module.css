@@ -15,36 +15,26 @@
 .searchBtn {
   display: flex;
   align-items: center;
-  border: 3px solid transparent;
+  border: 2px solid transparent;
   border-radius: 8px;
   padding: 7px;
   background-color: transparent;
-  color: #fff;
+  color: #bab8ba;
   cursor: pointer;
   transition: background-color 200ms, border-color 200ms;
 }
 
 .searchBtn:hover,
 .searchBtn:focus {
-  background-color: #808080;
+  background-color: #3a393a;
 }
 
 .searchBtn.active {
-  background-color: #808080;
-  border-color: #a5a5a5;
+  background-color: #3a393a;
+  border-color: #474747;
 }
 
 .searchText {
   text-transform: uppercase;
   margin-left: 6px;
-}
-
-.dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  width: 200px;
-  height: 300px;
-  background-color: grey;
-  z-index: 1;
 }

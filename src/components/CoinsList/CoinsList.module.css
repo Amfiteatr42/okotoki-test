@@ -1,0 +1,36 @@
+.dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 200px;
+  height: 300px;
+  background-color: transparent;
+  backdrop-filter: blur(4px);
+  border: 1px solid #474747;
+  border-radius: 8px;
+  z-index: 1;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #474747;
+  padding: 8px;
+}
+
+.queryInput {
+  width: 100%;
+  margin-left: 4px;
+  background-color: transparent;
+  outline: transparent;
+  border: none;
+  color: #bab8ba;
+}
+
+.clearInput {
+  display: flex;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
