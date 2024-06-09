@@ -118,4 +118,5 @@
 
 .tab.active {
   font-weight: 600;
+  pointer-events: none;
 }
