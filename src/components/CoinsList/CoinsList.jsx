@@ -3,11 +3,13 @@ import { SearchIcon } from "../icons/SearchIcon";
 import { CloseIcon } from "../icons/CloseIcon";
 import { getCoins } from "../../api/getCoins";
 import { EmptyStarIcon } from "../icons/EmptyStarIcon";
+import { FilledStarIcon } from "../icons/FilledStarIcon";
 import styles from "./CoinsList.module.css";
 
 export const CoinsList = () => {
   const [query, setQuery] = useState("");
   const [coins, setCoins] = useState([]);
+  const [activeTab, setActiveTab] = useState("all");
 
   useEffect(() => {
     getCoins().then(setCoins);
@@ -46,6 +48,24 @@ export const CoinsList = () => {
             </button>
           )}
         </div>
+      </div>
+
+      <div className={styles.tabsWrapper}>
+        <button
+          className={`${styles.tab} ${activeTab === "all" && styles.active}`}
+          onClick={() => setActiveTab("all")}
+        >
+          <FilledStarIcon width="18px" height="18px" />{" "}
+          <span className={styles.coinTicker}>FAVORITES</span>
+        </button>
+        <button
+          className={`${styles.tab} ${
+            activeTab === "favorites" && styles.active
+          }`}
+          onClick={() => setActiveTab("favorites")}
+        >
+          ALL COINS
+        </button>
       </div>
 
       {coins.length > 0 && (
