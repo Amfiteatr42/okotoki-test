@@ -22,6 +22,7 @@
   color: #bab8ba;
   cursor: pointer;
   transition: background-color 200ms, border-color 200ms;
+  user-select: none;
 }
 
 .searchBtn:hover,

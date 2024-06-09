@@ -9,7 +9,7 @@ import styles from "./CoinsList.module.css";
 
 const FAVORITES_KEY = "favorites";
 
-export const CoinsList = () => {
+export const CoinsList = ({ setIsShowDropdown }) => {
   const savedFavorites = JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
   const [query, setQuery] = useState("");
   const [coins, setCoins] = useState([]);
@@ -24,6 +24,17 @@ export const CoinsList = () => {
       setFilteredCoins(coins);
     };
     fetchCoins();
+  }, []);
+
+  useEffect(() => {
+    const closeOnEsc = (e) => {
+      if (e.key === "Escape") {
+        setIsShowDropdown(false);
+      }
+    };
+    document.addEventListener("keydown", closeOnEsc);
+
+    return () => document.removeEventListener("keydown", closeOnEsc);
   }, []);
 
   const onQueryChange = (e) => {
