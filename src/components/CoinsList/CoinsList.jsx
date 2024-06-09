@@ -15,7 +15,7 @@ export const CoinsList = () => {
   const [coins, setCoins] = useState([]);
   const [favorites, setFavorites] = useState(savedFavorites);
   const [filteredCoins, setFilteredCoins] = useState([]);
-  const [activeTab, setActiveTab] = useState("all");
+  const [isShowAllCoins, setIsShowAllCoins] = useState(true);
 
   useEffect(() => {
     const fetchCoins = async () => {
@@ -55,6 +55,16 @@ export const CoinsList = () => {
     localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
   }, [favorites]);
 
+  const showFavorites = () => {
+    setIsShowAllCoins(false);
+    setFilteredCoins(favorites);
+  };
+
+  const showAllCoins = () => {
+    setIsShowAllCoins(true);
+    setFilteredCoins(coins);
+  };
+
   return (
     <div className={styles.dropdown}>
       <div className={styles.inputWrapper}>
@@ -84,17 +94,15 @@ export const CoinsList = () => {
 
       <div className={styles.tabsWrapper}>
         <button
-          className={`${styles.tab} ${
-            activeTab === "favorites" && styles.active
-          }`}
-          onClick={() => setActiveTab("favorites")}
+          className={`${styles.tab} ${!isShowAllCoins && styles.active}`}
+          onClick={showFavorites}
         >
           <FilledStarIcon width="18px" height="18px" />{" "}
           <span className={styles.coinTicker}>FAVORITES</span>
         </button>
         <button
-          className={`${styles.tab} ${activeTab === "all" && styles.active}`}
-          onClick={() => setActiveTab("all")}
+          className={`${styles.tab} ${isShowAllCoins && styles.active}`}
+          onClick={showAllCoins}
         >
           ALL COINS
         </button>
