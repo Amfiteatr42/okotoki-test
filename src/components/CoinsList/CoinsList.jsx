@@ -29,10 +29,11 @@ export const CoinsList = () => {
   const onQueryChange = (e) => {
     const searchText = e.target.value.trim();
     setQuery(searchText);
+    const currentTabCoins = isShowAllCoins ? coins : favorites;
 
-    if (!searchText) return setFilteredCoins(coins);
+    if (!searchText) return setFilteredCoins(currentTabCoins);
 
-    const fuse = new Fuse(coins);
+    const fuse = new Fuse(currentTabCoins);
     const result = fuse.search(searchText);
     const filteredCoins = result.map(({ item }) => item);
     setFilteredCoins(filteredCoins);
