@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Fuse from "fuse.js";
 import { getCoins } from "@/api/getCoins";
 import { CloseIcon } from "../icons/CloseIcon";
 import { EmptyStarIcon } from "../icons/EmptyStarIcon";
@@ -9,18 +10,33 @@ import styles from "./CoinsList.module.css";
 export const CoinsList = () => {
   const [query, setQuery] = useState("");
   const [coins, setCoins] = useState([]);
+  const [filteredCoins, setFilteredCoins] = useState([]);
   const [activeTab, setActiveTab] = useState("all");
 
   useEffect(() => {
-    getCoins().then(setCoins);
+    const fetchCoins = async () => {
+      const coins = await getCoins();
+      setCoins(coins);
+      setFilteredCoins(coins);
+    };
+    fetchCoins();
   }, []);
 
   const onQueryChange = (e) => {
-    setQuery(e.target.value);
+    const searchText = e.target.value.trim();
+    setQuery(searchText);
+
+    if (!searchText) return setFilteredCoins(coins);
+
+    const fuse = new Fuse(coins);
+    const result = fuse.search(searchText);
+    const filteredCoins = result.map(({ item }) => item);
+    setFilteredCoins(filteredCoins);
   };
 
   const clearInput = () => {
     setQuery("");
+    setFilteredCoins(coins);
   };
 
   return (
@@ -52,25 +68,25 @@ export const CoinsList = () => {
 
       <div className={styles.tabsWrapper}>
         <button
-          className={`${styles.tab} ${activeTab === "all" && styles.active}`}
-          onClick={() => setActiveTab("all")}
-        >
-          <FilledStarIcon width="18px" height="18px" />{" "}
-          <span className={styles.coinTicker}>FAVORITES</span>
-        </button>
-        <button
           className={`${styles.tab} ${
             activeTab === "favorites" && styles.active
           }`}
           onClick={() => setActiveTab("favorites")}
         >
+          <FilledStarIcon width="18px" height="18px" />{" "}
+          <span className={styles.coinTicker}>FAVORITES</span>
+        </button>
+        <button
+          className={`${styles.tab} ${activeTab === "all" && styles.active}`}
+          onClick={() => setActiveTab("all")}
+        >
           ALL COINS
         </button>
       </div>
 
-      {coins.length > 0 && (
+      {coins?.length > 0 && (
         <div className={styles.coinsWrapper}>
-          {coins.map((coin) => (
+          {filteredCoins.map((coin) => (
             <div className={styles.coin}>
               <button className={styles.favoritesBtn} type="button">
                 <EmptyStarIcon width="18px" height="18px" />
