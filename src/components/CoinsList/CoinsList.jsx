@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { SearchIcon } from "../icons/SearchIcon";
+import { getCoins } from "@/api/getCoins";
 import { CloseIcon } from "../icons/CloseIcon";
-import { getCoins } from "../../api/getCoins";
 import { EmptyStarIcon } from "../icons/EmptyStarIcon";
 import { FilledStarIcon } from "../icons/FilledStarIcon";
+import { SearchIcon } from "../icons/SearchIcon";
 import styles from "./CoinsList.module.css";
 
 export const CoinsList = () => {
