@@ -7,9 +7,13 @@ import { FilledStarIcon } from "../icons/FilledStarIcon";
 import { SearchIcon } from "../icons/SearchIcon";
 import styles from "./CoinsList.module.css";
 
+const FAVORITES_KEY = "favorites";
+
 export const CoinsList = () => {
+  const savedFavorites = JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
   const [query, setQuery] = useState("");
   const [coins, setCoins] = useState([]);
+  const [favorites, setFavorites] = useState(savedFavorites);
   const [filteredCoins, setFilteredCoins] = useState([]);
   const [activeTab, setActiveTab] = useState("all");
 
@@ -38,6 +42,18 @@ export const CoinsList = () => {
     setQuery("");
     setFilteredCoins(coins);
   };
+
+  const toggleFavorites = (coin) => {
+    if (favorites.includes(coin)) {
+      setFavorites((state) => state.filter((item) => item !== coin));
+    } else {
+      setFavorites((state) => [...state, coin]);
+    }
+  };
+
+  useEffect(() => {
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+  }, [favorites]);
 
   return (
     <div className={styles.dropdown}>
@@ -87,9 +103,17 @@ export const CoinsList = () => {
       {coins?.length > 0 && (
         <div className={styles.coinsWrapper}>
           {filteredCoins.map((coin) => (
-            <div className={styles.coin}>
-              <button className={styles.favoritesBtn} type="button">
-                <EmptyStarIcon width="18px" height="18px" />
+            <div className={styles.coin} key={coin}>
+              <button
+                className={styles.favoritesBtn}
+                type="button"
+                onClick={() => toggleFavorites(coin)}
+              >
+                {favorites.includes(coin) ? (
+                  <FilledStarIcon width="18px" height="18px" />
+                ) : (
+                  <EmptyStarIcon width="18px" height="18px" />
+                )}
               </button>
               <span className={styles.coinTicker}>{coin}</span>
             </div>
